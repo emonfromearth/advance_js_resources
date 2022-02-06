@@ -272,3 +272,36 @@ self = this
 ^ using the above methods we can solve the problem with this without using the arrow function. 
 In the arrow function, this keyword is lexically scope not dynamically scope.
 */
+
+// call, apply, bind =============================================================
+/* 
+call() and apply() methods bind any methods from one object to another object. 
+or just say they borrow methods from one object to another.
+
+call() and apply() methods do exactly the same things just apply() takes an array as the arguments.
+
+bind() method is just the same as call() but rather than calling the function immediately, 
+it stores the value in a variable for later use.
+*/
+// const wizard = {
+//     name: 'Merlin',
+//     health: 100,
+//     heal: function(num1, num2) {
+//       this.health += num1 + num2;
+//     }
+//   }
+  
+//   const archer = {
+//     name: 'Robin Hood',
+//     health: 50
+//   }
+  
+//   wizard.heal.call(archer, 50, 60)
+//   wizard.heal.apply(archer, [20, 30])
+//   archer
+//   // function borrowing
+  
+//   const healArcher = wizard.heal.bind(archer, 50, 60);
+//   console.log(archer)
+//   healArcher()
+//   console.log(archer)
