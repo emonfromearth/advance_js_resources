@@ -1,4 +1,4 @@
-// ---EX--- stack overflow
+// ---EX--- stack overflow =============================================================
 // //fill array with 60000 elements
 //// this will cause stacker overflow
 // const list = new Array(60000).join('1.1').split('.');
@@ -26,7 +26,7 @@
 
 // removeItemsFromList();
 
-// //---EX--- hoisting
+// //---EX--- hoisting =============================================================
 // a();
 // console.log(one);
 // var one = 1;
@@ -66,7 +66,7 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 //       return 'no me!';
 //     }
 //   }
-  
+
 //   // Before running this code, what do you think the output is?
 //   bigBrother();
 
@@ -88,7 +88,7 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 //   console.log('warm')
 // }
 
-// // Function Invocation, Calling, Execution
+// // Function Invocation, Calling, Execution =============================================================
 // canada()
 // india()
 
@@ -118,16 +118,16 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 // function two() {
 //     var isValid; // 5. isValid is undefined in this execution context.
 //   }
-  
+
 //   function one() {
 //     var isValid = true; // 3. this variable will be put into the new execution context. It's own variable environment
 //     two(); // 4. New execution context created.
 //   }
-  
+
 //   var isValid = false; // 1. Global variable is created as undefined. Then during execution, it changes in memory to false.
 //   one() // 2. New execution context is created on top of the stack.
-  
-// // Scope:
+
+// // Scope: =============================================================
 // function sayMyName() {
 //     var a = 'a';
 //     return function findName() {
@@ -139,24 +139,24 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 //       }
 //     }
 //   }
-  
+
 //   sayMyName()()()
-  
+
 //   function findName() {
 //     var b = 'b';
 //     return printName();
 //   }
-  
+
 //   function printName() {
 //     var c = 'c'
 //     return 'Andrei Neagoie'
 //   }
-  
+
 //   function sayMyName() {
 //     var a = 'a';
 //     return findName()
 //   }
-  
+
 //   sayMyName()
 
 // Weird Javascript #1 - it asks global scope for height. Global scope says: ummm... no but here I just created it for you.
@@ -165,26 +165,76 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 // function weird() {
 //     height = 50
 //   }
-  
+
 //   var heyhey = function doodle() {
 //     // code here
 //   }
-  
+
 //   heyhey();
 //   doodle(); // Error! because it is enclosed in its own scope.
 
 // Function Scope. variables are only accessible within the function. for, while, if, etc's {} is not strict here.
-function loop() {
-    for( var i = 0; i < 5; i++) {
-      console.log(i);
-    }
-    console.log(i)
-  }
-  
-  //Block Scope. variables are only accessible within the block not the entire function. for, while, if, etc's {} is strict here.
-  function loop2() {
-    for( let i = 0; i < 5; i++) {
-      console.log(i);
-    }
-    console.log(i)
-  }
+// function loop() {
+//     for( var i = 0; i < 5; i++) {
+//       console.log(i);
+//     }
+//     console.log(i)
+//   }
+
+//   //Block Scope. variables are only accessible within the block not the entire function. for, while, if, etc's {} is strict here.
+//   function loop2() {
+//     for( let i = 0; i < 5; i++) {
+//       console.log(i);
+//     }
+//     console.log(i)
+//   }
+
+// IIFE : Immediately Invoked Function Expression =============================================================
+// a function expression can be called immediately after
+// (function(){
+//     console.log('hi')
+// })()
+
+// // same as above
+// (function(){
+//     console.log('hi')
+// }())
+
+// but in function declaration we can't
+// function(){}()
+
+// we can use IIFE to create a private scope. script returns only what we want. it'll return only a, b as object but not c. here c is a private variable.
+// var script = (function (anything) {
+//   var b = 5;
+//   var c = 10;
+//   function a() {
+//     console.log(anything + " " + c);
+//   }
+//   return {
+//     a: a,
+//     b: b,
+//   };
+// })("emon");
+
+// this keyword
+const obj = {
+  name: "Billy",
+  sing: function () {
+    return "llala " + this.name + "!";
+  },
+  singAgain: function () {
+    return this.sing();
+  },
+};
+
+obj.sing();
+
+function importantPerson() {
+  console.log(this.name);
+}
+
+const name = "Sunny";
+const obj1 = { name: "Cassy", importantPerson: importantPerson };
+const obj2 = { name: "Jacob", importantPerson: importantPerson };
+
+obj2.importantPerson();
