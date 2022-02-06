@@ -158,3 +158,33 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 //   }
   
 //   sayMyName()
+
+// Weird Javascript #1 - it asks global scope for height. Global scope says: ummm... no but here I just created it for you.
+// ps this isn't allowed in strict mode. We call this leakage of global variables.
+// 'use strict' // it will not create a global variable for height if not declared. it restricts default behavior.
+// function weird() {
+//     height = 50
+//   }
+  
+//   var heyhey = function doodle() {
+//     // code here
+//   }
+  
+//   heyhey();
+//   doodle(); // Error! because it is enclosed in its own scope.
+
+// Function Scope. variables are only accessible within the function. for, while, if, etc's {} is not strict here.
+function loop() {
+    for( var i = 0; i < 5; i++) {
+      console.log(i);
+    }
+    console.log(i)
+  }
+  
+  //Block Scope. variables are only accessible within the block not the entire function. for, while, if, etc's {} is strict here.
+  function loop2() {
+    for( let i = 0; i < 5; i++) {
+      console.log(i);
+    }
+    console.log(i)
+  }
