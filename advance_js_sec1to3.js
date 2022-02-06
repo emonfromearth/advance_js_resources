@@ -252,9 +252,9 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 //     }
 //     b()
 //   }
-  
+
 //   a()
-  
+
 //   //JS is weird:
 //   const obj = {
 //     name: 'Billy',
@@ -290,18 +290,78 @@ it stores the value in a variable for later use.
 //       this.health += num1 + num2;
 //     }
 //   }
-  
+
 //   const archer = {
 //     name: 'Robin Hood',
 //     health: 50
 //   }
-  
+
 //   wizard.heal.call(archer, 50, 60)
 //   wizard.heal.apply(archer, [20, 30])
 //   archer
 //   // function borrowing
-  
+
 //   const healArcher = wizard.heal.bind(archer, 50, 60);
 //   console.log(archer)
 //   healArcher()
 //   console.log(archer)
+
+// // use bind() - function currying
+// function multiply(a, b) {
+//     return a*b;
+// }
+
+// var multipleByTwo = multiply.bind(this, 2);
+// console.log(multipleByTwo(4));
+
+// var multipleByThree = multiply.bind(this, 3);
+// console.log(multipleByThree(4));
+
+// // this again
+// var b = {
+//   name: "jay",
+//   say() {
+//     console.log(this); // this is the object b. it makes sense.
+//   },
+// };
+
+// var c = {
+//   name: "jay",
+//   say() {
+//     return function () {
+//       console.log(this); // will point to windows object. unexpected behavior of this. dynamically scoped.
+//     };
+//   },
+// };
+
+// var d = {
+//   name: "jay",
+//   say() {
+//     return () => console.log(this); // arrow function. lexically scoped. solved the above unexpected behavior.
+//   },
+// };
+
+// // exercise with this keyword
+// const character = {
+//     name: 'Simon',
+//     getCharacter() {
+//       return this.name;
+//     }
+//   };
+//   const giveMeTheCharacterNOW = character.getCharacter;
+   
+//   //How Would you fix this?
+//   console.log('?', giveMeTheCharacterNOW()); //this should return 'Simon' bud doesn't
+
+//   // solution of the above exercise
+//   const character = {
+//     name: 'Simon',
+//     getCharacter() {
+//       return this.name;
+//     }
+//   };
+//   const giveMeTheCharacterNOW = character.getCharacter.bind(character);
+  
+  
+//   console.log('?', giveMeTheCharacterNOW());
+  
