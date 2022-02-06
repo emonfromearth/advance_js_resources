@@ -216,25 +216,59 @@ So the engine says, "ya there is a favouriteFood variable here but you can't acc
 //   };
 // })("emon");
 
-// this keyword
-const obj = {
-  name: "Billy",
-  sing: function () {
-    return "llala " + this.name + "!";
-  },
-  singAgain: function () {
-    return this.sing();
-  },
-};
+// // this keyword
+// const obj = {
+//   name: "Billy",
+//   sing: function () {
+//     return "llala " + this.name + "!";
+//   },
+//   singAgain: function () {
+//     return this.sing();
+//   },
+// };
 
-obj.sing();
+// obj.sing();
 
-function importantPerson() {
-  console.log(this.name);
-}
+// function importantPerson() {
+//   console.log(this.name);
+// }
 
-const name = "Sunny";
-const obj1 = { name: "Cassy", importantPerson: importantPerson };
-const obj2 = { name: "Jacob", importantPerson: importantPerson };
+// const name = "Sunny";
+// const obj1 = { name: "Cassy", importantPerson: importantPerson };
+// const obj2 = { name: "Jacob", importantPerson: importantPerson };
 
-obj2.importantPerson();
+// obj2.importantPerson();
+
+//Exercise with this keyword
+// const a = function() {
+//     console.log(this)
+//     const b = function() {
+//       console.log(this)
+//       const c = {
+//         hi: function() {
+//        console.log(this)
+//       }}
+//       c.hi()
+//     }
+//     b()
+//   }
+  
+//   a()
+  
+//   //JS is weird:
+//   const obj = {
+//     name: 'Billy',
+//     sing: function() {
+//       console.log(this) // in this case, it's a method on an object.
+//       var anotherFunc = function() {
+//         console.log(this)// this points to windows!
+//       }
+//     }
+//   }
+/* 
+binding this :3
+self = this
+
+^ using the above methods we can solve the problem with this without using the arrow function. 
+In the arrow function, this keyword is lexically scope not dynamically scope.
+*/
