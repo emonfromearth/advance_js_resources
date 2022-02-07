@@ -19,31 +19,94 @@ the outer object but the inner object is passed by reference.
 for deep cloning, we can use JSON.parse(JSON.stringyfy()) methods or nested use of spread operator.
 */
 
-var c = [1,2,3];
-var d = c;
-d.push( 4 );
+// var c = [1,2,3];
+// var d = c;
+// d.push( 4 );
 
-console.log(c);   // [1,2,3,4]
-console.log(d);   // [1,2,3,4]
+// console.log(c);   // [1,2,3,4]
+// console.log(d);   // [1,2,3,4]
 
-var a = 5;
-var b = a;
+// var a = 5;
+// var b = a;
 
-b++;
+// b++;
 
-let obj = {
-  a: 'a',
-  b: 'b',
-  c: {
-    deep: 'try and copy me'
-  }
-};
-let clone = Object.assign({}, obj);
-let clone2 = {...obj} // shallow clone using spread operator.
-let superClone = JSON.parse(JSON.stringify(obj)) // deep cloning. sometimes cause performance issue if the object is deeply nested.
+// let obj = {
+//   a: 'a',
+//   b: 'b',
+//   c: {
+//     deep: 'try and copy me'
+//   }
+// };
+// let clone = Object.assign({}, obj);
+// let clone2 = {...obj} // shallow clone using spread operator.
+// let superClone = JSON.parse(JSON.stringify(obj)) // deep cloning. sometimes cause performance issue if the object is deeply nested.
 
-obj.c.deep = 'hahaha';
-console.log(obj)
-console.log(clone)
-console.log(clone2)
-console.log(superClone)
+// obj.c.deep = 'hahaha';
+// console.log(obj)
+// console.log(clone)
+// console.log(clone2)
+// console.log(superClone)
+
+// // Exercise: Compare Objects
+// // How would you compare two objects if they are pointing to a different location in memory but still have the same properties?
+
+// var user1 = {name : "nerd", org: "dev"};
+// var user2 = {name : "nerd", org: "dev"};
+// var eq = user1 == user2;
+// var jsn = JSON.stringify(user1) == JSON.stringify(user2);
+// console.log(eq) // gives false
+// console.log(jsn) // gives true
+
+// // Exercise: pass by value and pass by reference
+// const number = 100
+// const string = "Jay"
+// let obj1 = {
+//   value: "a"
+// }
+// let obj2 = {
+//   value: "b"
+// }
+// let obj3 = obj2;
+ 
+// function change(number, string, obj1, obj2) {
+//     number = number * 10;
+//     string = "Pete";
+//     obj1 = obj2;
+//     obj2.value = "c";
+// }
+ 
+// change(number, string, obj1, obj2);
+ 
+// //Guess the outputs here before you run the code: 
+// console.log(number); 
+// console.log(string);
+// console.log(obj1.value);
+
+// type coercion ============================================================
+/*
+1 == '1' :  means check the two types and if not equal change the right one. so '1' becomes 1 and the result prints true. this type of coercion.
+
+1 === '1'  we should use === to check of the two object equal or comparing two things. there will be no type coercion happens.
+
+in if(1){} here 1 coerce to true
+in if(0){} here 0 coerce to false
+
+we can learn more about type coercion here:
+1. [interactive graph] https://dorey.github.io/JavaScript-Equality-Table/
+2. [docs] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+3. https://262.ecma-international.org/5.1/#sec-11.9.3
+*/
+
+// Exercise: Type Coercion
+// JS can be weird when it comes to type coercion. Try to guess what the output for each of the lines below are:
+
+false == ""  
+false == []  
+false == {}  
+"" == 0      
+"" == []     
+"" == {}     
+0 == []      
+0 == {}      
+0 == null    
