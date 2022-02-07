@@ -68,18 +68,18 @@ for deep cloning, we can use JSON.parse(JSON.stringyfy()) methods or nested use 
 //   value: "b"
 // }
 // let obj3 = obj2;
- 
+
 // function change(number, string, obj1, obj2) {
 //     number = number * 10;
 //     string = "Pete";
 //     obj1 = obj2;
 //     obj2.value = "c";
 // }
- 
+
 // change(number, string, obj1, obj2);
- 
-// //Guess the outputs here before you run the code: 
-// console.log(number); 
+
+// //Guess the outputs here before you run the code:
+// console.log(number);
 // console.log(string);
 // console.log(obj1.value);
 
@@ -101,12 +101,183 @@ we can learn more about type coercion here:
 // Exercise: Type Coercion
 // JS can be weird when it comes to type coercion. Try to guess what the output for each of the lines below are:
 
-false == ""  
-false == []  
-false == {}  
-"" == 0      
-"" == []     
-"" == {}     
-0 == []      
-0 == {}      
-0 == null    
+// false == ""
+// false == []
+// false == {}
+// "" == 0
+// "" == []
+// "" == {}
+// 0 == []
+// 0 == {}
+// 0 == null
+
+/*
+Dynamic vs Static - Strong vs Weak
+In javascript, because of coercion, it changes the variable types in runtime. for example, we can add strings and numbers together. 
+here variable types are not strongly kept, it changes. So, we call JavaScript is a weakly typed language. 
+(also javascript is a dynamically typed language as we do not define variable types when we write code. 
+in statically typed language we have to define the variable types whether it is str or int or any other types.).
+
+So, JavaScript is a dynamic and weakly typed language.
+*/
+
+/*
+function in javascript is just an object under the hood, but they have some special things like call ability, 
+some methods, and properties.
+
+function in JS is a first-class citizen. we can-
+1. assign function to a variable
+2. pass function as argument to another function
+3. return function from a function
+
+so we can do everything with functions like other data types. so that we called function is a first-class citizen.
+*/
+
+// Higher Order Functions =====================================================
+// Higher Order Function (HOF): function that returns another function or function that takes function as argument is called higher-order function.
+// const multiplyBy = num1 => num2 => num1 * num2;
+
+// multiplyBy(2)(3); // 6
+
+// closure: function that uses a variable from an outer function's scope is called closure.
+// lexically scoped variables are called closure. lexical scoping is a way to create a closure.
+// lexical scope === closure.
+// function a() {
+//     let grandpa = 'grandpa'
+//     return function b() {
+//       let father = 'father'
+//       return function c() {
+//         let son = 'son'
+//         return `${grandpa} > ${father} > ${son}`
+//       }
+//     }
+//   }
+
+//   a()
+
+//   //closures and higher order function
+//   function boo(string) {
+//     return function(name) {
+//       return function(name2) {
+//         console.log(`hi ${name2}`)
+//       }
+//     }
+//   }
+
+//   // same above function using arrow function
+//   const boo2 = (string) => (name) => (name2) => console.log(`hi ${name2}`)
+
+//   boo('hi')('john')('tanya');
+
+//   // AHH! HOW DOES IT REMEMBER THIS 5 years from now?
+//   booString = boo2('sing');
+//   booStringName = booString('John');
+//   booStringNameName2 = booStringName('tanya')
+
+//   // closure exercise 2
+//   function heavyDuty(item) {
+//     const bigArray = new Array(7000).fill('😄')
+//     console.log('created!');
+//     return bigArray[item]
+//   }
+
+//   heavyDuty(699)
+//   heavyDuty(699)
+//   heavyDuty(699)
+//   const getHeavyDuty = heavyDuty2(); // it creates closure.
+//   getHeavyDuty(699)
+//   getHeavyDuty(699)
+//   getHeavyDuty(699)
+
+//   // but i dont want to pollute the global namespace..
+//   function heavyDuty2() {
+//     const bigArray = new Array(7000).fill('😄')
+//     console.log('created Again!')
+//     return function(item) {
+//       return bigArray[item]
+//     }
+//   }
+
+// // closure exercise 3
+// const makeNuclearButton = () => {
+//   let timeWithoutDestruction = 0;
+//   const passTime = () => timeWithoutDestruction++;
+//   const totalPeaceTime = () => timeWithoutDestruction;
+//   const launch = () => {
+//     timeWithoutDestruction = -1;
+//     return "💥";
+//   };
+
+//   setInterval(passTime, 1000);
+//   return { totalPeaceTime };
+// };
+
+// const ww3 = makeNuclearButton();
+// ww3.totalPeaceTime();
+
+// // Make it so that the initialize function can only be called once!
+// let view;
+// function initialize() {
+//       view = '🏔';
+//       console.log('view has been set!')
+// }
+
+// initialize();
+// initialize();
+// initialize();
+
+// console.log(view)
+
+// // solution 3
+// let view;
+// function initialize() {
+//   let called = 0;
+//   return function() {
+//     if (called > 0) {
+//       return
+//     } else {
+//       view = '🏔';
+//       called = true;
+//       console.log('view has been set!')
+//     }
+
+//   }
+// }
+
+// const start = initialize();
+// start();
+// start();
+// start();
+// console.log(view)
+
+// // closure exercise
+// const array = [1,2,3,4];
+// for(var i=0; i < array.length; i++) {
+//   setTimeout(function(){
+//     console.log('I am at index ' + i)
+//   }, 3000)
+// } // after 3 seconds, it will print -> I am at index 4 : because it is at the end of the loop and i was 4 at that time.
+
+// // solution 
+// const array = [1,2,3,4];
+// for(var i=0; i < array.length; i++) {
+//     let j = i;
+//   setTimeout(function(){
+//     console.log('I am at index ' + j)
+//   }, 3000)
+// }
+
+// // another soltuion to the above problem
+// const array = [1,2,3,4];
+// for(var i=0; i < array.length; i++) {
+//   (function(closureI) {
+//     setTimeout(function(){
+//       console.log('I am at index ' + array[closureI])
+//     }, 3000)
+//   })(i)
+// }
+/*
+closure is memory efficient: when we create closure and call the function then it doesn't create and destruct every time.
+closure encapsulates data: we can hide unnecessary data using the power of closure.
+*/
+// javascript cares where the function is written, not where the function is called.
