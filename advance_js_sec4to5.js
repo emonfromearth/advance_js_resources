@@ -281,3 +281,33 @@ closure is memory efficient: when we create closure and call the function then i
 closure encapsulates data: we can hide unnecessary data using the power of closure.
 */
 // javascript cares where the function is written, not where the function is called.
+
+// prototypal inheritance =====================================================
+// We can inherit the properties and methods from one object to another object using prototypal inheritance.
+// array and functions are objects in javascript. And they get access to the object's method through the prototype chain which we call prototypal inheritance.
+let dragon = {
+    name: 'Tanya',
+    fire: true,
+    fight() {
+      return 5
+    },
+    sing() {
+      if (this.fire) {
+        return `I am ${this.name}, the breather of fire`
+      }
+    }
+  }
+  
+  let lizard = {
+    name: 'Kiki',
+    fight() {
+      return 1
+    }
+  }
+  // Don't do this, bad performance. Show with bind.
+  lizard.__proto__ = dragon;
+  dragon.isPrototypeOf(lizard);
+  console.log(lizard.fire)
+  console.log(lizard.sing())
+  const lizardFire = dragon.sing.bind(lizard)
+  console.log(lizardFire())
