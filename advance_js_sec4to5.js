@@ -258,7 +258,7 @@ so we can do everything with functions like other data types. so that we called 
 //   }, 3000)
 // } // after 3 seconds, it will print -> I am at index 4 : because it is at the end of the loop and i was 4 at that time.
 
-// // solution 
+// // solution
 // const array = [1,2,3,4];
 // for(var i=0; i < array.length; i++) {
 //     let j = i;
@@ -282,32 +282,83 @@ closure encapsulates data: we can hide unnecessary data using the power of closu
 */
 // javascript cares where the function is written, not where the function is called.
 
-// prototypal inheritance =====================================================
-// We can inherit the properties and methods from one object to another object using prototypal inheritance.
-// array and functions are objects in javascript. And they get access to the object's method through the prototype chain which we call prototypal inheritance.
-let dragon = {
-    name: 'Tanya',
-    fire: true,
-    fight() {
-      return 5
-    },
-    sing() {
-      if (this.fire) {
-        return `I am ${this.name}, the breather of fire`
-      }
-    }
-  }
-  
-  let lizard = {
-    name: 'Kiki',
-    fight() {
-      return 1
-    }
-  }
-  // Don't do this, bad performance. Show with bind.
-  lizard.__proto__ = dragon;
-  dragon.isPrototypeOf(lizard);
-  console.log(lizard.fire)
-  console.log(lizard.sing())
-  const lizardFire = dragon.sing.bind(lizard)
-  console.log(lizardFire())
+// // prototypal inheritance =====================================================
+// // We can inherit the properties and methods from one object to another object using prototypal inheritance.
+// // array and functions are objects in javascript. And they get access to the object's method through the prototype chain which we call prototypal inheritance.
+// let dragon = {
+//     name: 'Tanya',
+//     fire: true,
+//     fight() {
+//       return 5
+//     },
+//     sing() {
+//       if (this.fire) {
+//         return `I am ${this.name}, the breather of fire`
+//       }
+//     }
+//   }
+
+//   let lizard = {
+//     name: 'Kiki',
+//     fight() {
+//       return 1
+//     }
+//   }
+//   // Don't do this, bad performance. Show with bind.
+//   lizard.__proto__ = dragon;
+//   dragon.isPrototypeOf(lizard);
+//   console.log(lizard.fire)
+//   console.log(lizard.sing())
+//   const lizardFire = dragon.sing.bind(lizard)
+//   console.log(lizardFire())
+
+// //Every Prototype chain links to a prototype object{}
+// function multiplyBy5(num) {
+//   return num * 5;
+// }
+
+// // multiplyBy5(num) > Function > Object > null
+// //   multiplyBy5.__proto__ === Function.prototype //   true
+// multiplyBy5.__proto__;
+// Function.prototype;
+// //   multiplyBy5.__proto__.__proto__ === Object.prototype //   true
+// multiplyBy5.__proto__.__proto__;
+// Object.prototype;
+// multiplyBy5.__proto__.__proto__.__proto__; // null
+// typeof Object;
+// typeof {};
+
+// // Create our own prototypes:
+// // we can use Object.create() instead of __proto__
+// var human = {mortal: true}
+// var socrates = Object.create(human);
+// human.isPrototypeOf(socrates); // true
+
+// // prototypal inheritance Exercise
+// //Array.map() => to print '🗺'
+// // modify the javascript's map method to add '🗺' to the end of each element in the array.
+// Array.prototype.map = function () {
+//   // what happens with arrow function here?
+//   arr = [];
+//   for (let i = 0; i < this.length; i++) {
+//     arr.push(this[i] + "🗺");
+//   }
+//   return arr;
+// };
+// console.log([1, 2, 3].map());
+
+// //Date object => to have method .yesterday() which shows you yesterday's day in 'YYYY-MM-DD' format.
+// Date.prototype.lastYear = function () {
+//   return this.getFullYear() - 1; // this will refer to after dot which means  the Date object's argument.
+// };
+
+// new Date("1900-10-10").lastYear();
+// // don't worry if you didn't get this... we will expand on this later.
+
+// // modify the javascript's bind() method to add '🗺' to the end of each element in the array.
+// Function.prototype.bind = function(whoIsCallingMe){
+//     const self = this;
+//     return function(){
+//       return self.apply(whoIsCallingMe, arguments);
+//     };
+//   }
