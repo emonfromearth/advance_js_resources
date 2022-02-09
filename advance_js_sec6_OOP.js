@@ -98,49 +98,112 @@ we can only add properties in a constructor function using this keyword.
 //   const ben = new Elf('Ben', 'bow');
 //   fiona.attack()
 
-// this keyword
-// new binding
-// at the time of creating an object, the this keyword is bound to the object.
-function Person(name, age) {
-  this.name = name;
-  this.age = age;
-  console.log(this);
+// // this keyword
+// // new binding
+// // at the time of creating an object, the this keyword is bound to the object.
+// function Person(name, age) {
+//   this.name = name;
+//   this.age = age;
+//   console.log(this);
+// }
+
+// const person1 = new Person("Xavier", 55);
+
+// //implicit binding
+// // natural use case for this keyword
+// const person = {
+//   name: "Karen",
+//   age: 40,
+//   hi() {
+//     console.log("hi" + this.name);
+//   },
+// };
+
+// person.hi();
+
+// //explicit binding with bind method. here .bind(window) window refers to this keyword
+// const person3 = {
+//   name: "Karen",
+//   age: 40,
+//   hi: function () {
+//     console.log("hi" + this.setTimeout);
+//   }.bind(window),
+// };
+
+// person3.hi();
+
+// // arrow functions
+// // in arrow functions this keyword is lexically scoped to the enclosing context.
+// const person4 = {
+//   name: "Karen",
+//   age: 40,
+//   hi: function () {
+//     var inner = () => {
+//       console.log("hi " + this.name);
+//     };
+//     return inner();
+//   },
+// };
+
+// // OOP in JS
+// class Character {
+//   constructor(name, weapon) {
+//     this.name = name;
+//     this.weapon = weapon;
+//   }
+//   attack() {
+//     return "attack with " + this.weapon;
+//   }
+// }
+
+// class Elf extends Character {
+//   constructor(name, weapon, type) { //  name and weapon are inherited from the parent class
+//     // console.log('what am i?', this); this gives an error
+//     super(name, weapon);
+//     console.log("what am i?", this); // at this line this.type yet not defined.
+//     this.type = type;
+//   }
+// }
+
+// class Ogre extends Character {
+//   constructor(name, weapon, color) {
+//     super(name, weapon);
+//     this.color = color;
+//   }
+//   makeFort() {
+//     // this is like extending our prototype.
+//     return "strongest fort in the world made";
+//   }
+// }
+
+// const houseElf = new Elf("Dolby", "cloth", "house");
+// // houseElf.makeFort() // error
+// const shrek = new Ogre("Shrek", "club", "green");
+// shrek.makeFort();
+
+// OOP Exercise
+class Character {
+  constructor(name, weapon) {
+    this.name = name;
+    this.weapon = weapon;
+  }
+  attack() {
+    return "attack with " + this.weapon;
+  }
 }
 
-const person1 = new Person("Xavier", 55);
+class Queen extends Character {
+    constructor(name, weapon, type){
+        super(name, weapon)
+        this.type = type
+    }
+    attack(){
+        console.log(super.attack());
+        return `I am the ${this.name} of ${this.type}, now bow down to me!`
+    }
+}
+//Polymorphism--
+//Extend the Character class to have a Queen class. The output of the below code should be:
+const victoria = new Queen("Victoria", "army", "hearts"); // create a new instance with the queen having (name, weapon, type). Type includes: 'hearts', 'clubs', 'spades', 'diamonds'
 
-//implicit binding
-// natural use case for this keyword
-const person = {
-  name: "Karen",
-  age: 40,
-  hi() {
-    console.log("hi" + this.name);
-  },
-};
-
-person.hi();
-
-//explicit binding with bind method. here .bind(window) window refers to this keyword
-const person3 = {
-  name: "Karen",
-  age: 40,
-  hi: function () {
-    console.log("hi" + this.setTimeout);
-  }.bind(window),
-};
-
-person3.hi();
-
-// arrow functions
-// in arrow functions this keyword is lexically scoped to the enclosing context.
-const person4 = {
-  name: "Karen",
-  age: 40,
-  hi: function () {
-    var inner = () => {
-      console.log("hi " + this.name);
-    };
-    return inner();
-  },
-};
+victoria.attack(); // will console.log the attack() method in Character class AND will return another string: 'I am the Victoria of hearts, now bow down to me! '
