@@ -82,3 +82,18 @@ only functions has prototype property
 
 we can only add properties in a constructor function using this keyword.
 */
+// class is just a syntactic sugar
+class Elf {
+    constructor(name, weapon) {
+      this.name = name;
+      this.weapon = weapon;
+    }
+    attack() {
+      return 'attack with ' + this.weapon
+    }
+  }
+  
+  const fiona = new Elf('Fiona', 'ninja stars');
+  console.log(fiona instanceof Elf) // 
+  const ben = new Elf('Ben', 'bow');
+  fiona.attack()
