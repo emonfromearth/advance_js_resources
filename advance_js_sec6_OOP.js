@@ -38,7 +38,7 @@
 // // OOP- using Object.create() to create a prototype chain
 // const elfFunctions = {
 //   attack: function () {
-//     return this.name + " atack with " + this.weapon;
+//     return this.name + " attack with " + this.weapon;
 //   },
 // };
 // function createElf(name, weapon) {
@@ -54,17 +54,31 @@
 // console.log(sam.attack());
 // console.log(peter.attack());
 
-// more on constructor functions
-//Constructor Functions
-function Elf(name, weapon) {
-  this.name = name;
-  this.weapon = weapon;
-}
+// // more on constructor functions
+// //Constructor Functions
+// function Elf(name, weapon) {
+//   this.name = name;
+//   this.weapon = weapon;
+// }
 
-// add a method to the prototype through the prototype chain
-Elf.prototype.attack = function () {
-  return "atack with " + this.weapon;
-};
-const sam = new Elf("Sam", "bow");
-const peter = new Elf("Peter", "bow");
-console.log(sam.attack()) 
+// // add a method to the prototype through the prototype chain
+// Elf.prototype.attack = function () {
+//   return "attack with " + this.weapon;
+// };
+// const sam = new Elf("Sam", "bow");
+// const peter = new Elf("Peter", "bow");
+// console.log(sam.attack()) 
+
+/*
+NOTE:
+
+JS has class keyword but this is not actually a class. this is just syntactic sugar that uses the same prototypal inheritance. 
+class is still an object like everything
+
+constructor functions run every time a new object is created using new keyword. 
+But the other methods in class don't create every time. thus we can save memory.
+
+only functions has prototype property
+
+we can only add properties in a constructor function using this keyword.
+*/
