@@ -67,7 +67,7 @@
 // };
 // const sam = new Elf("Sam", "bow");
 // const peter = new Elf("Peter", "bow");
-// console.log(sam.attack()) 
+// console.log(sam.attack())
 
 /*
 NOTE:
@@ -82,18 +82,65 @@ only functions has prototype property
 
 we can only add properties in a constructor function using this keyword.
 */
-// class is just a syntactic sugar
-class Elf {
-    constructor(name, weapon) {
-      this.name = name;
-      this.weapon = weapon;
-    }
-    attack() {
-      return 'attack with ' + this.weapon
-    }
-  }
-  
-  const fiona = new Elf('Fiona', 'ninja stars');
-  console.log(fiona instanceof Elf) // 
-  const ben = new Elf('Ben', 'bow');
-  fiona.attack()
+// // class is just a syntactic sugar
+// class Elf {
+//     constructor(name, weapon) {
+//       this.name = name;
+//       this.weapon = weapon;
+//     }
+//     attack() {
+//       return 'attack with ' + this.weapon
+//     }
+//   }
+
+//   const fiona = new Elf('Fiona', 'ninja stars');
+//   console.log(fiona instanceof Elf) //
+//   const ben = new Elf('Ben', 'bow');
+//   fiona.attack()
+
+// this keyword
+// new binding
+// at the time of creating an object, the this keyword is bound to the object.
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  console.log(this);
+}
+
+const person1 = new Person("Xavier", 55);
+
+//implicit binding
+// natural use case for this keyword
+const person = {
+  name: "Karen",
+  age: 40,
+  hi() {
+    console.log("hi" + this.name);
+  },
+};
+
+person.hi();
+
+//explicit binding with bind method. here .bind(window) window refers to this keyword
+const person3 = {
+  name: "Karen",
+  age: 40,
+  hi: function () {
+    console.log("hi" + this.setTimeout);
+  }.bind(window),
+};
+
+person3.hi();
+
+// arrow functions
+// in arrow functions this keyword is lexically scoped to the enclosing context.
+const person4 = {
+  name: "Karen",
+  age: 40,
+  hi: function () {
+    var inner = () => {
+      console.log("hi " + this.name);
+    };
+    return inner();
+  },
+};
