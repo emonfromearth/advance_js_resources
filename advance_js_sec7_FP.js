@@ -133,21 +133,29 @@ To minimize the complexity of our code we should do declarative coding.
 // const updatedObj = updateName(obj)
 // console.log(obj, updatedObj)
 
-// we can use closure and higher-order functions to make variable private.
-//HOF
-const hof = (fn) => fn(5);
-hof(function a(x) {
-  return x;
-});
-//Closure
-const closure = function () {
-  let count = 55;
-  return function getCounter() {
-    return count;
-  };
-};
+// // we can use closure and higher-order functions to make variable private.
+// //HOF
+// const hof = (fn) => fn(5);
+// hof(function a(x) {
+//   return x;
+// });
+// //Closure
+// const closure = function () {
+//   let count = 55;
+//   return function getCounter() {
+//     return count;
+//   };
+// };
 
-const getCounter = closure();
-getCounter();
-getCounter();
-getCounter();
+// const getCounter = closure();
+// getCounter();
+// getCounter();
+// getCounter();
+
+// The currying function takes one argument at a time and works with multiple arguments.
+//Currying
+const multiply = (a, b) => a * b
+const curriedMultiply = (a) => (b) => a * b
+curriedMultiply(5)(20)
+const multiplyBy5 = curriedMultiply(5)
+multiplyBy5(20)
