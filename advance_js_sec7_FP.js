@@ -117,18 +117,37 @@ To minimize the complexity of our code we should do declarative coding.
 */
 
 // parameters of a function are local variables.
-// Immutability: not changing the data, not changing the state.
-const obj = {name: 'Andrei'}
-function clone(obj) {
-  return {...obj}; // this is pure
-}
+// // Immutability: not changing the data, not changing the state.
+// const obj = {name: 'Andrei'}
+// function clone(obj) {
+//   return {...obj}; // this is pure
+// }
 
-function updateName(obj) {
-  const obj2 = clone
-  (obj);
-  obj2.name = 'Nana'
-  return obj2 // this function doesn't change the global object. it makes a copy and then changes the name. and then returns the copy.
-}
+// function updateName(obj) {
+//   const obj2 = clone
+//   (obj);
+//   obj2.name = 'Nana'
+//   return obj2 // this function doesn't change the global object. it makes a copy and then changes the name. and then returns the copy.
+// }
 
-const updatedObj = updateName(obj)
-console.log(obj, updatedObj)
+// const updatedObj = updateName(obj)
+// console.log(obj, updatedObj)
+
+// we can use closure and higher-order functions to make variable private.
+//HOF
+const hof = (fn) => fn(5);
+hof(function a(x) {
+  return x;
+});
+//Closure
+const closure = function () {
+  let count = 55;
+  return function getCounter() {
+    return count;
+  };
+};
+
+const getCounter = closure();
+getCounter();
+getCounter();
+getCounter();
