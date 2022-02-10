@@ -94,17 +94,17 @@ Idempotence: idempotent functions are not pure functions.
 It communicates with the outside world but return the same result no matter how many time the function is called.
 */
 
-// Idempotence:
-function notGood() {
-  return Math.random();
-  // new Date();
-}
+// // Idempotence:
+// function notGood() {
+//   return Math.random();
+//   // new Date();
+// }
 
-function good() {
-  return 5;
-}
+// function good() {
+//   return 5;
+// }
 
-Math.abs(Math.abs(10));
+// Math.abs(Math.abs(10));
 
 /*
 Imperative: what to do and how to do
@@ -115,3 +115,20 @@ imperative conversion. Jquery is more Imperative than React which is Declarative
 
 To minimize the complexity of our code we should do declarative coding.
 */
+
+// parameters of a function are local variables.
+// Immutability: not changing the data, not changing the state.
+const obj = {name: 'Andrei'}
+function clone(obj) {
+  return {...obj}; // this is pure
+}
+
+function updateName(obj) {
+  const obj2 = clone
+  (obj);
+  obj2.name = 'Nana'
+  return obj2 // this function doesn't change the global object. it makes a copy and then changes the name. and then returns the copy.
+}
+
+const updatedObj = updateName(obj)
+console.log(obj, updatedObj)
