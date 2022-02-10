@@ -152,10 +152,17 @@ To minimize the complexity of our code we should do declarative coding.
 // getCounter();
 // getCounter();
 
-// The currying function takes one argument at a time and works with multiple arguments.
-//Currying
-const multiply = (a, b) => a * b
-const curriedMultiply = (a) => (b) => a * b
-curriedMultiply(5)(20)
-const multiplyBy5 = curriedMultiply(5)
-multiplyBy5(20)
+// // The currying function takes one argument at a time and works with multiple arguments.
+// //Currying
+// const multiply = (a, b) => a * b
+// const curriedMultiply = (a) => (b) => a * b
+// curriedMultiply(5)(20)
+// const multiplyBy5 = curriedMultiply(5)
+// multiplyBy5(20)
+
+// partial application function takes one argument at the first call and the rest of the arguments at the second call. 
+// not like currying function that takes one argument at a time.
+//Partial Application
+const multiply = (a, b, c) => a * b * c
+const partialMultiplyBy5 = multiply.bind(null, 5)
+partialMultiplyBy5(10, 20)
