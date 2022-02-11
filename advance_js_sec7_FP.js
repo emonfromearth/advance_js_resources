@@ -214,13 +214,97 @@ To minimize the complexity of our code we should do declarative coding.
 // console.log(2, memoized(6)); // this will not run again because it's in the cache.
 // console.log(3, memoized(8)); // this will run again because it's not in the cache.
 
-// we can use small pure function and by composing them can make complex function.
-fn1(fn2(fn3(50))); // same as above without using compose or pipe just calling function
+// // we can use small pure function and by composing them can make complex function.
+// fn1(fn2(fn3(50))); // same as above without using compose or pipe just calling function
 
-// compose(fn1, fn2, fn3)(50) // Right to left
-// pipe(fn3, fn2, fn1)(50) // left to right
+// // Right to left
+// compose(fn1, fn2, fn3)(50)
+// // left to right
+// pipe(fn3, fn2, fn1)(50)
 
-const compose = (f, g) => (a) => f(g(a))
-const pipe = (f, g) => (a) => g(f(a))
-const multiplyBy3AndAbsolute = compose((num) => num*3, Math.abs)
-console.log(multiplyBy3AndAbsolute(-50))
+// const compose = (f, g) => (a) => f(g(a))
+// const pipe = (f, g) => (a) => g(f(a))
+// const multiplyBy3AndAbsolute = compose((num) => num*3, Math.abs)
+// console.log(multiplyBy3AndAbsolute(-50))
+
+// Arity: arity is the number of arguments a function takes.
+// Functional Programming: Build a amazon shopping cart.
+// Implement a cart feature:
+// 1. Add items to cart.
+// 2. Add 3% tax to item in cart
+// 3. Buy item: cart --> purchases
+// 4. Empty cart
+
+// Bonus:
+// accept refunds.
+// Track user history.
+
+const user = {
+    name: "Kim",
+    active: true,
+    cart: [],
+    purchases: [],
+};
+
+const item = { name: "laptop", price: 50 }
+
+const history1 = [];
+const compose =
+    (f, g) =>
+        (...args) =>
+            f(g(...args));
+const pipe =
+    (f, g) =>
+        (...args) =>
+            g(f(...args));
+const purchaseItem = (...fns) => fns.reduce(compose);
+const purchaseItem2 = (...fns) => fns.reduce(pipe);
+//   purchaseItem2(
+//     addItemToCart,
+//     applyTaxToItems,
+//     buyItem,
+//     emptyUserCart,
+//   )(user, {name: 'laptop', price: 60})
+purchaseItem(
+    emptyUserCart,
+    buyItem,
+    applyTaxToItems,
+    addItemToCart
+)(user, item);
+
+function addItemToCart(user, item) {
+    history1.push(user);
+    const updatedCart = user.cart.concat(item);
+    return Object.assign({}, user, { cart: updatedCart });
+}
+
+function applyTaxToItems(user) {
+    history1.push(user);
+    const { cart } = user;
+    const taxRate = 1.3;
+    const updatedCart = cart.map((item) => {
+        return {
+            name: item.name,
+            price: item.price * taxRate,
+        };
+    });
+    return Object.assign({}, user, { cart: updatedCart });
+}
+
+function buyItem(user) {
+    history1.push(user);
+    const itemsInCart = user.cart;
+    return Object.assign({}, user, { purchases: itemsInCart });
+}
+function emptyUserCart(user) {
+    history1.push(user);
+    return Object.assign({}, user, { cart: [] });
+}
+
+function refundItem() { }
+
+function getUserState() { }
+
+function goBack() { }
+
+function goForward() { }
