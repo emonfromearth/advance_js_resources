@@ -308,3 +308,14 @@ function getUserState() { }
 function goBack() { }
 
 function goForward() { }
+
+/*
+Functional Programing Major principle:
+1 task
+return statement
+pure
+no shared state
+immutable state
+composable
+predictable
+*/
