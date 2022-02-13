@@ -95,16 +95,27 @@ In FP functions say data and operations are different things and they should be 
 
 // console.log("After Promise.all");
 
-// using promise chaining ES6
-fetch("https://jsonplaceholder.typicode.com/users")
-  .then((resp) => resp.json())
-  .then(data => console.log(data));
+// // using promise chaining ES6
+// fetch("https://jsonplaceholder.typicode.com/users")
+//   .then((resp) => resp.json())
+//   .then(data => console.log(data));
 
-// using async/await ES8
-async function fetchUsers() {
-  const resp = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await resp.json();
-  return console.log(data)
-}
+// // using async/await ES8
+// async function fetchUsers() {
+//   const resp = await fetch("https://jsonplaceholder.typicode.com/users");
+//   const data = await resp.json();
+//   return console.log(data)
+// }
 
-fetchUsers();
+// fetchUsers();
+
+// using spread operator we can destructure the data. it is a new feature in ES6
+// there is some newer syntax for async/await in ES9 which **for await** and for promise which is .finally()
+setTimeout(()=>{console.log('1', 'is the loneliest number')}, 0)
+setTimeout(()=>{console.log('2', 'can be as bad as one')}, 10)
+
+//2
+Promise.resolve('hi').then((data)=> console.log('2', data))
+
+//3
+console.log('3','is a crowd')
