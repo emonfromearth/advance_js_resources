@@ -109,13 +109,46 @@ In FP functions say data and operations are different things and they should be 
 
 // fetchUsers();
 
-// using spread operator we can destructure the data. it is a new feature in ES6
-// there is some newer syntax for async/await in ES9 which **for await** and for promise which is .finally()
-setTimeout(()=>{console.log('1', 'is the loneliest number')}, 0)
-setTimeout(()=>{console.log('2', 'can be as bad as one')}, 10)
+// // using spread operator we can destructure the data. it is a new feature in ES6
+// // there is some newer syntax for async/await in ES9 which **for await** and for promise which is .finally()
+// setTimeout(()=>{console.log('1', 'is the loneliest number')}, 0)
+// setTimeout(()=>{console.log('2', 'can be as bad as one')}, 10)
 
-//2
-Promise.resolve('hi').then((data)=> console.log('2', data))
+// //2
+// Promise.resolve('hi').then((data)=> console.log('2', data))
 
-//3
-console.log('3','is a crowd')
+// //3
+// console.log('3','is a crowd')
+
+// parallel, sequence, race
+const promisify = (item, delay) =>
+  new Promise((resolve) =>
+    setTimeout(() =>
+      resolve(item), delay));
+
+const a = () => promisify('a', 1000);
+const b = () => promisify('b', 5000);
+const c = () => promisify('c', 5000);
+
+async function parallel() {
+  const promises = [a(), b(), c()];
+  const [output1, output2, output3] = await Promise.all(promises);
+  return `parallel is done: ${output1} ${output2} ${output3}`
+}
+
+async function race() {
+  const promises = [a(), b(), c()];
+  const output1 = await Promise.race(promises);
+  return `race is done: ${output1}`;
+}
+
+async function sequence() {
+  const output1 = await a();
+  const output2 = await b();
+  const output3 = await c();
+  return `sequence is done ${output1} ${output2} ${output3}`
+}
+
+sequence().then(console.log) // will run after 11 sec. cause 11 is the sum of 1+5+5  
+parallel().then(console.log) // will run after 5 sec. cause 5 is the highest and everything runs paralelly 
+race().then(console.log) // will run after 1 sec. cause it is a race
