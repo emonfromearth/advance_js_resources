@@ -122,18 +122,16 @@ In FP functions say data and operations are different things and they should be 
 
 // parallel, sequence, race
 const promisify = (item, delay) =>
-  new Promise((resolve) =>
-    setTimeout(() =>
-      resolve(item), delay));
+  new Promise((resolve) => setTimeout(() => resolve(item), delay));
 
-const a = () => promisify('a', 1000);
-const b = () => promisify('b', 5000);
-const c = () => promisify('c', 5000);
+const a = () => promisify("a", 1000);
+const b = () => promisify("b", 5000);
+const c = () => promisify("c", 5000);
 
 async function parallel() {
   const promises = [a(), b(), c()];
   const [output1, output2, output3] = await Promise.all(promises);
-  return `parallel is done: ${output1} ${output2} ${output3}`
+  return `parallel is done: ${output1} ${output2} ${output3}`;
 }
 
 async function race() {
@@ -146,9 +144,33 @@ async function sequence() {
   const output1 = await a();
   const output2 = await b();
   const output3 = await c();
-  return `sequence is done ${output1} ${output2} ${output3}`
+  return `sequence is done ${output1} ${output2} ${output3}`;
 }
 
-sequence().then(console.log) // will run after 11 sec. cause 11 is the sum of 1+5+5  
-parallel().then(console.log) // will run after 5 sec. cause 5 is the highest and everything runs paralelly 
-race().then(console.log) // will run after 1 sec. cause it is a race
+sequence().then(console.log); // will run after 11 sec. cause 11 is the sum of 1+5+5
+parallel().then(console.log); // will run after 5 sec. cause 5 is the highest and everything runs paralelly
+race().then(console.log); // will run after 1 sec. cause it is a race
+
+// ### ES2020
+// there is a new syntax in ES2020 which is allSettled() for Promise. it can be use for subtituding of Promise.all() with Promise.allSettled().
+// Unlike throwing undefined if any promise gets rejected for all(),  allSettled() returns an array of objects regardless the promise is resolved or rejected.
+
+// Promise.any() resolves if any of the supplied promises is resolved. Below we have 3 promises, which resolves at random times.
+
+// ### ES2021: any()
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("A"), Math.floor(Math.random() * 1000));
+});
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("B"), Math.floor(Math.random() * 1000));
+});
+const p3 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("C"), Math.floor(Math.random() * 1000));
+});
+// Out of p1, p2 and p3, whichever resolves first is taken by Promise.any().
+
+(async function () {
+  const result = await Promise.any([p1, p2, p3]);
+  console.log(result); // Prints "A", "B" or "C"
+})();
+// What if none of the promises resolve? In that case Promise.any() throws an error!
