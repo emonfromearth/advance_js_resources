@@ -43,54 +43,68 @@ In FP functions say data and operations are different things and they should be 
 */
 
 // Asynchronous JavaScript ==========================================================
-const prom = new Promise((resolve, reject) => {
-  if (true) {
-    resolve("Success prom");
-  } else {
-    reject("Failure");
-  }
-});
+// const prom = new Promise((resolve, reject) => {
+//   if (true) {
+//     resolve("Success prom");
+//   } else {
+//     reject("Failure");
+//   }
+// });
 
-const prom2 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("Success 2");
-  }, 2000);
-});
+// const prom2 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve("Success 2");
+//   }, 2000);
+// });
 
-const prom3 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("Success 3");
-  }, 5000);
-});
+// const prom3 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve("Success 3");
+//   }, 5000);
+// });
 
-// for resolving array of promises all at once
-Promise.all([prom, prom2, prom3]).then((result) => {
-  console.log(result);
-});
+// // for resolving array of promises all at once
+// Promise.all([prom, prom2, prom3]).then((result) => {
+//   console.log(result);
+// });
 
-prom
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// prom
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
-const urls = [
-  "https://jsonplaceholder.typicode.com/users",
-  "https://jsonplaceholder.typicode.com/posts",
-  "https://jsonplaceholder.typicode.com/albums",
-];
+// const urls = [
+//   "https://jsonplaceholder.typicode.com/users",
+//   "https://jsonplaceholder.typicode.com/posts",
+//   "https://jsonplaceholder.typicode.com/albums",
+// ];
 
-// this returns an array of promises
-console.log(urls.map((url) => fetch(url).then((resp) => resp.json())));
+// // this returns an array of promises
+// console.log(urls.map((url) => fetch(url).then((resp) => resp.json())));
 
-// for resolving array of promises all at once
-Promise.all(urls.map((url) => fetch(url).then((resp) => resp.json())))
-.then(
-  (resp) => {
-    resp.map((data) => console.log(data));
-  } 
-);
+// // for resolving array of promises all at once
+// Promise.all(urls.map((url) => fetch(url).then((resp) => resp.json())))
+// .then(
+//   (resp) => {
+//     resp.map((data) => console.log(data));
+//   }
+// );
 
-console.log("After Promise.all");
+// console.log("After Promise.all");
+
+// using promise chaining ES6
+fetch("https://jsonplaceholder.typicode.com/users")
+  .then((resp) => resp.json())
+  .then(data => console.log(data));
+
+// using async/await ES8
+async function fetchUsers() {
+  const resp = await fetch("https://jsonplaceholder.typicode.com/users");
+  const data = await resp.json();
+  return console.log(data)
+}
+
+fetchUsers();
