@@ -239,78 +239,80 @@ To minimize the complexity of our code we should do declarative coding.
 // accept refunds.
 // Track user history.
 
-const user = {
-    name: "Kim",
-    active: true,
-    cart: [],
-    purchases: [],
-};
+// const user = {
+//     name: "Kim",
+//     active: true,
+//     cart: [],
+//     purchases: [],
+// };
 
-const item = { name: "laptop", price: 50 }
+// const item = { name: "laptop", price: 50 }
 
-const history1 = [];
-const compose =
-    (f, g) =>
-        (...args) =>
-            f(g(...args));
-const pipe =
-    (f, g) =>
-        (...args) =>
-            g(f(...args));
-const purchaseItem = (...fns) => fns.reduce(compose);
-const purchaseItem2 = (...fns) => fns.reduce(pipe);
-//   purchaseItem2(
-//     addItemToCart,
-//     applyTaxToItems,
-//     buyItem,
+// const history1 = [];
+// const compose =
+//     (f, g) =>
+//         (...args) =>
+//             f(g(...args));
+// const pipe =
+//     (f, g) =>
+//         (...args) =>
+//             g(f(...args));
+// const purchaseItem = (...fns) => fns.reduce(compose);
+// const purchaseItem2 = (...fns) => fns.reduce(pipe);
+// //   purchaseItem2(
+// //     addItemToCart,
+// //     applyTaxToItems,
+// //     buyItem,
+// //     emptyUserCart,
+// //   )(user, {name: 'laptop', price: 60})
+// purchaseItem(
 //     emptyUserCart,
-//   )(user, {name: 'laptop', price: 60})
-purchaseItem(
-    emptyUserCart,
-    buyItem,
-    applyTaxToItems,
-    addItemToCart
-)(user, item);
+//     buyItem,
+//     applyTaxToItems,
+//     addItemToCart
+// )(user, item);
 
-function addItemToCart(user, item) {
-    history1.push(user);
-    const updatedCart = user.cart.concat(item);
-    return Object.assign({}, user, { cart: updatedCart });
-}
+// function addItemToCart(user, item) {
+//     history1.push(user);
+//     const updatedCart = user.cart.concat(item);
+//     return Object.assign({}, user, { cart: updatedCart });
+// }
 
-function applyTaxToItems(user) {
-    history1.push(user);
-    const { cart } = user;
-    const taxRate = 1.3;
-    const updatedCart = cart.map((item) => {
-        return {
-            name: item.name,
-            price: item.price * taxRate,
-        };
-    });
-    return Object.assign({}, user, { cart: updatedCart });
-}
+// function applyTaxToItems(user) {
+//     history1.push(user);
+//     const { cart } = user;
+//     const taxRate = 1.3;
+//     const updatedCart = cart.map((item) => {
+//         return {
+//             name: item.name,
+//             price: item.price * taxRate,
+//         };
+//     });
+//     return Object.assign({}, user, { cart: updatedCart });
+// }
 
-function buyItem(user) {
-    history1.push(user);
-    const itemsInCart = user.cart;
-    return Object.assign({}, user, { purchases: itemsInCart });
-}
-function emptyUserCart(user) {
-    history1.push(user);
-    return Object.assign({}, user, { cart: [] });
-}
+// function buyItem(user) {
+//     history1.push(user);
+//     const itemsInCart = user.cart;
+//     return Object.assign({}, user, { purchases: itemsInCart });
+// }
+// function emptyUserCart(user) {
+//     history1.push(user);
+//     return Object.assign({}, user, { cart: [] });
+// }
 
-function refundItem() { }
+// function refundItem() { }
 
-function getUserState() { }
+// function getUserState() { }
 
-function goBack() { }
+// function goBack() { }
 
-function goForward() { }
+// function goForward() { }
 
 /*
-Functional Programing Major principle:
+========================================== FP vs OOP ===================================================
+NOTE:
+### Functional Programing Major principle:
 1 task
 return statement
 pure
@@ -318,4 +320,36 @@ no shared state
 immutable state
 composable
 predictable
+
+### Object Oriented Programming vs Functional Programming
+inheritance: Inherit from a big (general) class and modify that class extending a new small* class
+composition: composing small functions and making big functionalities.
+
+Humans are bad at predicting the future. So at the time of designing our class, we can't predict everything before. 
+So our parent class may change in future. This causes problems sometimes. Sometimes at the time of inheriting, 
+we just need small functionalities from a parent class. But we had to inherit the whole class. classes are tightly coupled. 
+creates problems when parent-child hierarchy changes for some reason. and we had to repeat ourselves sometimes to solve the issue.
+
+On the other hand, functions are more flexible. we can build small simple functions easily. And it has almost no effect on 
+future changes.
+
+### Goal to write good code:
+1. Clear + Understandable
+2. Easy to extend
+3. Easy to maintain
+4. Memory efficient
+5. DRY
+
+### FP vs OOP
+1. many operations on fixed data vs few operations on common data
+2. stateless: don't change the state. just operate on data. states are immutable vs stateful: change the state of the program 
+like when extending object we change the state of the parent class.
+3. pure: no side effects, so more predictable code. no effect on data outside of the function. vs impure: has side effects. 
+methods manipulate the internal state.
+
+for the purity on FP, we can run our functions on multiple processors as it has no side effects. we can't do that in OOP cause 
+it has side effects. FP is very effective for working with big data, ML, and AI. OOP is good for designing large applications 
+like the game characters. In OOP we put data and functions in the same place. it helps us to understand our program. 
+In FP functions say data and operations are different things and they should be kept separate.
 */
+
