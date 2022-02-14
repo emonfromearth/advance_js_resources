@@ -175,12 +175,36 @@ In FP functions say data and operations are different things and they should be 
 // })();
 // // What if none of the promises resolve? In that case Promise.any() throws an error!
 
-// Resources: multi threading, multi processing 
+// ### Resources: multi threading, multi processing 
 // Running Node.js on multiple CPU: https://www.freecodecamp.org/news/scaling-node-js-applications-8492bd8afadc
 // Web workers: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
 // Multi threading: https://www.internalpointers.com/post/gentle-introduction-multithreading
 
-// Threads, concurrency and parallelism in JavaScript.
+// ### Threads, concurrency and parallelism in JavaScript.
 // Threads: threads is the smallest chunk of a task
 // Concurrency: a program can run concurrently in a single thread.
 // Parallelism: a program can run in parallel in multiple threads in multiple processors.
+// on the background of the web browser or node.js there are multiple threads running. 
+// we do not have to worry about concurrency or parallelism when writing code every time.
+
+
+// ### Modules in JavaScript
+var harry = 'potter'
+var voldemort = 'He who must not be named'
+function fight(char1, char2) {
+  var attack1 = Math.floor(Math.random() * char1.length);
+  var attack2 = Math.floor(Math.random() * char2.length);
+  return attack1 > attack2 ? `${char1} wins` : `${char2} wins`
+}
+
+fight(harry, voldemort) 
+
+/*
+For having modular code in JS we use:
+1. IIFE (Immediately Invoked Function Expression)
+2. CommonJS (in Node.js)(using require.js)(browserify, webpack)(bundled all the modules in one file)
+3. AMD (Asynchronous Module Definition) - use define() to define a module
+4. UMD (Universal Module Definition) - use if else to define a module
+5. ES6 Modules - import : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+                  export: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
+*/
