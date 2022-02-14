@@ -179,3 +179,8 @@ In FP functions say data and operations are different things and they should be 
 // Running Node.js on multiple CPU: https://www.freecodecamp.org/news/scaling-node-js-applications-8492bd8afadc
 // Web workers: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
 // Multi threading: https://www.internalpointers.com/post/gentle-introduction-multithreading
+
+// Threads, concurrency and parallelism in JavaScript.
+// Threads: threads is the smallest chunk of a task
+// Concurrency: a program can run concurrently in a single thread.
+// Parallelism: a program can run in parallel in multiple threads in multiple processors.
