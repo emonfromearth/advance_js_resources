@@ -175,7 +175,7 @@ In FP functions say data and operations are different things and they should be 
 // })();
 // // What if none of the promises resolve? In that case Promise.any() throws an error!
 
-// ### Resources: multi threading, multi processing 
+// ### Resources: multi threading, multi processing
 // Running Node.js on multiple CPU: https://www.freecodecamp.org/news/scaling-node-js-applications-8492bd8afadc
 // Web workers: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
 // Multi threading: https://www.internalpointers.com/post/gentle-introduction-multithreading
@@ -184,20 +184,19 @@ In FP functions say data and operations are different things and they should be 
 // Threads: threads is the smallest chunk of a task
 // Concurrency: a program can run concurrently in a single thread.
 // Parallelism: a program can run in parallel in multiple threads in multiple processors.
-// on the background of the web browser or node.js there are multiple threads running. 
+// on the background of the web browser or node.js there are multiple threads running.
 // we do not have to worry about concurrency or parallelism when writing code every time.
 
+// // ### Modules in JavaScript
+// var harry = 'potter'
+// var voldemort = 'He who must not be named'
+// function fight(char1, char2) {
+//   var attack1 = Math.floor(Math.random() * char1.length);
+//   var attack2 = Math.floor(Math.random() * char2.length);
+//   return attack1 > attack2 ? `${char1} wins` : `${char2} wins`
+// }
 
-// ### Modules in JavaScript
-var harry = 'potter'
-var voldemort = 'He who must not be named'
-function fight(char1, char2) {
-  var attack1 = Math.floor(Math.random() * char1.length);
-  var attack2 = Math.floor(Math.random() * char2.length);
-  return attack1 > attack2 ? `${char1} wins` : `${char2} wins`
-}
-
-fight(harry, voldemort) 
+// fight(harry, voldemort)
 
 /*
 For having modular code in JS we use:
@@ -208,3 +207,27 @@ For having modular code in JS we use:
 5. ES6 Modules - import : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
                   export: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
 */
+
+// Error handling in JavaScript ==========================================
+/* 
+if errors are encountered it search for a catch at the bottom of the stack. 
+if don't find any catch then it runs onerror() in the browser and process.on('uncaughtException') in node.
+We should catch errors in our program so that our programs keep running rather than getting stopped where errors happen.
+*/
+
+throw "Error2"; // String type
+throw 42; // Number type
+throw true; // Boolean type
+throw Error;
+throw new Error(); // will create an instance of an Error in JavaScript and stop the execution of your script.
+
+function a() {
+  const b = new Error("what?");
+  return b;
+}
+
+a().stack;
+
+let error = new Error(message);
+let error2 = new SyntaxError(message);
+let error3 = new ReferenceError(message);
